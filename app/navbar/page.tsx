@@ -27,7 +27,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(getInitialDarkMode);
-  const [language, setLanguage] = useState<'en' | 'si'>('en') // Default language
+  const [language, setLanguage] = useState<'en' | 'si' | 'ta'>('en') // Default language
   const [isLoggedIn, setIsLoggedIn] = useState(false) // Authentication state
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
   const [userData, setUserData] = useState<UserData | null>(null)
@@ -153,7 +153,7 @@ export default function Navbar() {
 
   // Language toggle logic
   const toggleLanguage = () => {
-    const newLang = language === 'en' ? 'si' : 'en'
+    const newLang = language === 'en' ? 'si' : language === 'si' ? 'ta' : 'en'
     setLanguage(newLang)
     localStorage.setItem('language', newLang)
     window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: newLang } }))
@@ -173,7 +173,7 @@ export default function Navbar() {
     window.dispatchEvent(new CustomEvent('themeChange', { detail: { isDarkMode: isDark } }))
 
     const savedLang = localStorage.getItem('language') || 'en'
-    setLanguage(savedLang as 'en' | 'si')
+    setLanguage(savedLang as 'en' | 'si' | 'ta')
     window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: savedLang } }))
   }, [])
 
@@ -214,14 +214,26 @@ export default function Navbar() {
     { name: 'අප හා සම්බන්ධ වන්න', path: '/contact' }
   ]
 
-  const navItems = language === 'en' ? navItemsEn : navItemsSi
+  const navItemsTa = [
+    { name: 'முகப்பு', path: '/' },
+    { name: 'வரைபடம்', path: '/map' },
+    { name: 'கனிபொட்', path: '/minebot' },
+    { name: 'ராஜதந்திரக் கட்டணம்', path: '/royalty' },
+    { name: 'புகார்கள்', path: '/complains' },
+    { name: 'உரிமங்கள்', path: '/license-portal' },
+    { name: 'அறிவு', path: '/minemore' },
+    { name: 'எங்களைப் பற்றி', path: '/about' },
+    { name: 'எங்களை தொடர்பு கொள்ள', path: '/contact' }
+  ]
+
+  const navItems = language === 'en' ? navItemsEn : language === 'si' ? navItemsSi : navItemsTa
 
   // Auth related text based on language and auth state
   const authText = useMemo(() => ({
-    signup: authLanguage === 'en' ? 'Sign Up' : 'ලියාපදිංචි වන්න',
-    dashboard: authLanguage === 'en' ? 'Dashboard' : 'උපකරණ පුවරුව',
-    logout: authLanguage === 'en' ? 'Logout' : 'පිටවීම',
-    profile: authLanguage === 'en' ? 'Profile' : 'පැතිකඩ'
+    signup: authLanguage === 'en' ? 'Sign Up' : authLanguage === 'si' ? 'ලියාපදිංචි වන්න' : 'பதிவு செய்யுங்கள்',
+    dashboard: authLanguage === 'en' ? 'Dashboard' : authLanguage === 'si' ? 'උපකරණ පුවරුව' : 'டாஷ்போர்டு',
+    logout: authLanguage === 'en' ? 'Logout' : authLanguage === 'si' ? 'පිටවීම' : 'வெளியேறு',
+    profile: authLanguage === 'en' ? 'Profile' : authLanguage === 'si' ? 'පැතිකඩ' : 'சுயவிவரம்'
   }), [authLanguage]);
 
   // Get display name
@@ -363,7 +375,7 @@ export default function Navbar() {
               `}
               title="Switch Language"
             >
-              {language === 'en' ? 'EN' : 'සි'}
+              {language === 'en' ? 'EN' : language === 'si' ? 'සි' : 'த'}
             </motion.button>
 
             {/* Theme Toggle Button */}
