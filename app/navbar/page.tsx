@@ -14,10 +14,19 @@ interface UserData {
   role?: string; // Add role property
 }
 
+function getInitialDarkMode() {
+  if (typeof window !== 'undefined') {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) return savedTheme === 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  return false; // Default to light mode for SSR
+}
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [isDarkMode, setIsDarkMode] = useState(true) // Default to dark mode
+  const [isDarkMode, setIsDarkMode] = useState(getInitialDarkMode);
   const [language, setLanguage] = useState<'en' | 'si'>('en') // Default language
   const [isLoggedIn, setIsLoggedIn] = useState(false) // Authentication state
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false)
@@ -168,6 +177,18 @@ export default function Navbar() {
     window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: savedLang } }))
   }, [])
 
+  // Listen for theme changes from other components
+  useEffect(() => {
+    const handleThemeChange = (event: CustomEvent) => {
+      setIsDarkMode(event.detail.isDarkMode)
+    }
+
+    window.addEventListener('themeChange', handleThemeChange as EventListener)
+    return () => {
+      window.removeEventListener('themeChange', handleThemeChange as EventListener)
+    }
+  }, [])
+
   // Navigation items - reorganized for better spacing
   const navItemsEn = [
     { name: 'Home', path: '/' },
@@ -175,20 +196,20 @@ export default function Navbar() {
     { name: 'Minebot', path: '/minebot' },
     { name: 'Royalty', path: '/royalty' },
     { name: 'Complains', path: '/complains' },
-    { name: 'License Portal', path: '/license-portal' },
+    { name: 'Licenses', path: '/license-portal' },
     { name: 'Minemore', path: '/minemore' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Contact Us', path: '/contact' }
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' }
   ]
 
   const navItemsSi = [
     { name: 'මුල් පිටුව', path: '/' },
     { name: 'සිතියම', path: '/map' },
-    { name: 'Minebot', path: '/minebot' },
-    { name: 'Royalty', path: '/royalty' },
-    { name: 'Complains', path: '/complains' },
-    { name: 'License Portal', path: '/license-portal' },
-    { name: 'Minemore', path: '/minemore' },
+    { name: 'ඛණිජා', path: '/minebot' },
+    { name: 'රාජකීය ගාස්තු', path: '/royalty' },
+    { name: 'පැමිණිලි', path: '/complains' },
+    { name: 'බලපත්‍ර', path: '/license-portal' },
+    { name: 'දැනුම', path: '/minemore' },
     { name: 'අපි ගැන', path: '/about' },
     { name: 'අප හා සම්බන්ධ වන්න', path: '/contact' }
   ]
@@ -311,7 +332,7 @@ export default function Navbar() {
                 <Link href={item.path}>
                   <span
                     className={`
-                      nav-link px-3 py-2 rounded-lg font-medium text-sm
+                      px-3 py-2 rounded-lg font-medium text-sm
                       ${getNavTextColor()}
                       ${scrolled && isDarkMode ? 'hover:bg-gray-800' : scrolled ? 'hover:bg-gray-100' : 'hover:bg-white/10'}
                       transition-all duration-200

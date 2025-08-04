@@ -87,11 +87,11 @@ export default function MapPage() {
       <canvas ref={canvasRef} className="fixed inset-0 w-full h-full z-0" />
 
       <footer
-      className={`relative z-10 py-8 ${isDarkMode ? 'bg-gray-900' : 'bg-gray-800'}`}
-    >
+        className={`relative z-10 py-8 ${isDarkMode ? 'bg-gray-900 text-gray-400' : 'bg-gray-100 text-gray-700'}`}
+      >
         <div className="container mx-auto px-4 text-center">
           <p
-            className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-300'}`}
+            className={`text-sm`}
           >
             &copy; {new Date().getFullYear()} CeylonMine. All rights reserved.
           </p>
