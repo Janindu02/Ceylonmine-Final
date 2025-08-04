@@ -153,7 +153,7 @@ const ImageSlider = ({ currentSlide, setCurrentSlide }: ImageSliderProps) => {
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [language, setLanguage] = useState<'en' | 'si'>('en');
+  const [language, setLanguage] = useState<'en' | 'si' | 'ta'>('en');
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const features = [
@@ -182,36 +182,76 @@ export default function Home() {
 
   const keyServices = [
     {
-      title: "Interactive Map",
-      description: "Explore mining locations and environmental data across Sri Lanka",
+      title: {
+        en: "Interactive Map",
+        si: "සිතියම",
+        ta: "இடைக்கால வரைபடம்"
+      },
+      description: {
+        en: "Explore mining locations and environmental data across Sri Lanka",
+        si: "ශ්‍රී ලංකාවේ ඛණිජ ස්ථාන සහ පාරිසරික දත්ත පරීක්ෂා කරන්න",
+        ta: "இலங்கையின் சுரங்க இடங்கள் மற்றும் சுற்றுச்சூழல் தரவுகளை ஆராயுங்கள்"
+      },
       icon: "🗺️",
       href: "/map",
       color: "from-blue-500 to-blue-600"
     },
     {
-      title: "License Portal",
-      description: "Apply for and manage mining licenses and permits",
+      title: {
+        en: "License Portal",
+        si: "බලපත්‍ර නිකුත් කිරීමේ ද්වාරය",
+        ta: "உரிமப் போர்டல்"
+      },
+      description: {
+        en: "Apply for and manage mining licenses and permits",
+        si: "ඛණිජ බලපත්‍ර හා අනුමතීන් සඳහා අයදුම් කරන්ன සහ කළමනාකරණය කරන්න",
+        ta: "சுரங்க உரிமங்கள் மற்றும் அனுமதிகளை விண்ணப்பிக்கவும், நிர்வகிக்கவும்"
+      },
       icon: "📋",
       href: "/license-portal",
       color: "from-green-500 to-green-600"
     },
     {
-      title: "Royalty Calculator",
-      description: "Calculate mining royalties and taxes accurately",
+      title: {
+        en: "Royalty Calculator",
+        si: "රාජකීය ගාස්තු ගණකය",
+        ta: "ராஜதந்திரக் கணிப்பான்"
+      },
+      description: {
+        en: "Calculate mining royalties and taxes accurately",
+        si: "රාජකීය ගාස්තු සහ බදු නිවැරදිව ගණනය කරන්න",
+        ta: "சுரங்க வரிகளையும், அரசக் கட்டணங்களையும் சரியாக கணக்கிடுங்கள்"
+      },
       icon: "🧮",
       href: "/royalty",
       color: "from-orange-500 to-orange-600"
     },
     {
-      title: "MineBot Assistant",
-      description: "Get instant help and guidance for mining operations",
+      title: {
+        en: "MineBot Assistant",
+        si: "ඛණිජා",
+        ta: "கனிபொட் உதவியாளர்"
+      },
+      description: {
+        en: "Get instant help and guidance for mining operations",
+        si: "ඛණිජ ක්‍රියාදාම සම්බන්ධයෙන් ක්ෂණික උපදෙස් සහ ආධාර ලබා ගන්න",
+        ta: "சுரங்க செயல்பாடுகளுக்கான உடனடி உதவியையும் வழிகாட்டலையும் பெறுங்கள்"
+      },
       icon: "🤖",
       href: "/minebot",
       color: "from-yellow-500 to-yellow-600"
     },
     {
-      title: "Complaints Portal",
-      description: "Report issues and submit complaints for resolution",
+      title: {
+        en: "Complaints Portal",
+        si: "පැමිණිලි ද්වාරය",
+        ta: "புகாருகள் போர்டல்"
+      },
+      description: {
+        en: "Report issues and submit complaints for resolution",
+        si: "ගැටලු වාர්තා කරන්න සහ විසඳුම් සඳහා පැමිණිලි ඉදිරිපත් කරන්න",
+        ta: "சிக்கல்களை புகாரளிக்கவும், தீர்வுகளுக்கு சமர்ப்பிக்கவும்"
+      },
       icon: "📝",
       href: "/complains",
       color: "from-red-500 to-red-600"
@@ -241,6 +281,8 @@ export default function Home() {
     const savedLang = localStorage.getItem('language');
     if (savedLang === 'si') {
       setLanguage('si');
+    } else if (savedLang === 'ta') {
+      setLanguage('ta');
     } else {
       setLanguage('en');
     }
@@ -269,6 +311,7 @@ export default function Home() {
       sustainability: "SUSTAINABILITY",
       keyServices: "KEY SERVICES",
       keyServicesText: "Access our comprehensive suite of digital mining management tools designed for government efficiency and industry compliance.",
+      accessService: "Access Service",
       userFooter: "All rights reserved."
     },
     si: {
@@ -278,9 +321,22 @@ export default function Home() {
       transparency: "විනිවිද පෙනෙනභාවය",
       efficiency: "කාර්යක්ෂමතාව",
       sustainability: "තිරසාරතාවය",
-      keyServices: "ප්‍රධාන සේවා",
+      keyServices: "ප්‍රධාන සේவා",
       keyServicesText: "රජයේ කාර්යක්ෂමතාව සහ කර්මාන්ත අනුකූලතාව සඳහා නිර්මාණය කර ඇති අපගේ සම්පූර්ණ ඩිජිටල් ඛනිජ කළමනාකරණ මෙවලම් සංචිතයට ප්‍රවේශ වන්න.",
+      accessService: "සේවාවට ප්‍රවේශ වන්න",
       userFooter: "සියලු හිමිකම් ඇවිරිණි."
+    },
+    ta: {
+      heroSubtitle: "இலங்கையின் சுரங்க மதிப்பு சங்கிலி முழுவதும் வெளிப்படைத்தன்மை, இணக்கத்தன்மை மற்றும் நிலைத்தன்மையை ஊக்குவிக்கும் வகையில் கனிம பிரித்தெடுத்தல் அனுமதி மற்றும் வரி விதிப்பை டிஜிட்டல் மயமாக்குதல்.",
+      ourCommitment: "எங்கள் உறுதிப்பாடு",
+      commitmentText: "CeylonMine முன்னோடி டிஜிட்டல் தொழில்நுட்பத்தின் மூலம் சுரங்க செயல்பாடுகளை புரட்சிகரமாக மாற்றுவதற்கு அர்ப்பணிக்கப்பட்டுள்ளது, வெளிப்படை ஆளுமை, செயல்பாட்டு திறன் மற்றும் சுற்றுச்சூழல் பாதுகாப்பை உறுதி செய்கிறது.",
+      transparency: "வெளிப்படைத்தன்மை",
+      efficiency: "திறன்",
+      sustainability: "நிலைத்தன்மை",
+      keyServices: "முக்கிய சேவைகள்",
+      keyServicesText: "அரசாங்க திறன் மற்றும் தொழில் இணக்கத்திற்காக வடிவமைக்கப்பட்ட எங்கள் விரிவான டிஜிட்டல் சுரங்க மேலாண்மை கருவிகளின் தொகுப்பை அணுகுங்கள்.",
+      accessService: "சேவையை அணுகு",
+      userFooter: "அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை."
     }
   };
 
@@ -383,12 +439,12 @@ export default function Home() {
                       <div className="relative h-full flex flex-col">
                         <div className="text-6xl mb-6">{service.icon}</div>
                         <h3 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                          {service.title}
+                          {service.title[language]}
                         </h3>
                         <p className={`text-base leading-relaxed flex-grow ${
                           isDarkMode ? 'text-gray-300' : 'text-gray-600'
                         }`}>
-                          {service.description}
+                          {service.description[language]}
                         </p>
                         
                         <div className={`mt-6 flex items-center font-semibold group-hover:scale-105 transition-all duration-200 ${
@@ -396,7 +452,7 @@ export default function Home() {
                             ? 'text-blue-400 group-hover:text-blue-300' 
                             : 'text-blue-600 group-hover:text-blue-700'
                         }`}>
-                          <span>Access Service</span>
+                          <span>{t.accessService}</span>
                           <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                           </svg>
