@@ -175,10 +175,10 @@ export default function Navbar() {
     { name: 'Minebot', path: '/minebot' },
     { name: 'Royalty', path: '/royalty' },
     { name: 'Complains', path: '/complains' },
-    { name: 'License Portal', path: '/license-portal' },
+    { name: 'License', path: '/license-portal' },
     { name: 'Minemore', path: '/minemore' },
-    { name: 'About Us', path: '/about' },
-    { name: 'Contact Us', path: '/contact' }
+    { name: 'About', path: '/about' },
+    { name: 'Contact', path: '/contact' }
   ]
 
   const navItemsSi = [
